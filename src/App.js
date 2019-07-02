@@ -9,7 +9,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <h1>Buho App Project</h1>
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route path='/signup' component={SignUp} />
