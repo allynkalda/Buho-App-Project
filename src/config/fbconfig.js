@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import 'firebase/storage'
 
 var firebaseConfig = {
     apiKey: "AIzaSyD6bZJi5URKgapRjRErxGY7I3nqcsUNk0k",
@@ -11,8 +12,13 @@ var firebaseConfig = {
     messagingSenderId: "805612353548",
     appId: "1:805612353548:web:09d4d9ac98cfee4e"
   };
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.firestore()
 
-  export default firebase
+  const storage = firebase.storage()
+
+  export {
+    storage, firebase as default
+  }

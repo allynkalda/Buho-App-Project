@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signUp } from '../../store/actions/authActions'
-import { storage, database } from '../../config/fbconfig.js'
+import { storage } from '../../config/fbconfig.js'
 
 class SignUp extends Component {
     state = {
@@ -10,7 +10,8 @@ class SignUp extends Component {
         lastName: '',
         email: '',
         password: '',
-        image: ''
+        image: null,
+        url: ''
     }
 
     handleChange = (e) => {
@@ -19,9 +20,26 @@ class SignUp extends Component {
         })
     }
 
+    handleChangeImage = (e) => {
+        if (e.target.files[0]) {
+            const image = e.target.files[0]
+            this.setState({ image })
+            }
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.signUp(this.state)
+    }
+
+    handleSubmitImage = (e) => {
+        const { image } = this.state
+        const uploadTask = storage.ref(`images/${image.name}`).put(image)
+        uploadTask.on('state changed', () => {
+            storage.ref('images').child(image.name).getDownloadUrl().then(url => {
+                console.log(url)
+            })
+        })
     }
     
     render() {
@@ -32,7 +50,7 @@ class SignUp extends Component {
 
         return (
             <div className="container">
-                <form className="white" onSubmit={this.handleSubmit}>
+                <form className="white" onSubmit={this.handleSubmit, this.handleSubmitImage}>
                 <h5 className="grey-text text-darken-3">Sign Up</h5>
                     <div className="input-field">
                         <label htmlFor="firstName">First Name</label>
@@ -52,7 +70,7 @@ class SignUp extends Component {
                     </div>
                     <div className="input-field">
                         <label htmlFor="image">Profile Photo</label>
-                        <input type="file" id="image" onChange={this.handleChange} />
+                        <input type="file" id="image" onChange={this.handleChangeImage} />
                     </div>
                     <div className="input-field">
                         <button className="btn green lighten-1 z-depth-0">Sign Up</button>
