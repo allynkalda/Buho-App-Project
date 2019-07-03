@@ -11,7 +11,7 @@ class SignUp extends Component {
         email: '',
         password: '',
         image: null,
-        url: ''
+        photoURL: ''
     }
 
     handleChange = (e) => {
@@ -32,21 +32,18 @@ class SignUp extends Component {
         const { image } = this.state
         const uploadTask = storage.ref(`images/${image.name}`).put(image)
         uploadTask.on('state_changed', (snapshot) => {
-            storage.ref('images').child(image.name).getDownloadURL().then(url => {
-                console.log(url)
+            storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
+                console.log(photoURL)
             })
         })
         this.props.signUp(this.state)
-    }
-
-    handleSubmitImage = (e) => {
-
     }
     
     render() {
 
         const { auth, authError } = this.props;
 
+        console.log(auth)
         // if (auth.uid) return <Redirect to='/' />
 
         return (
