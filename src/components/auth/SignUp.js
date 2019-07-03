@@ -29,17 +29,18 @@ class SignUp extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const { image } = this.state
+        const uploadTask = storage.ref(`images/${image.name}`).put(image)
+        uploadTask.on('state_changed', (snapshot) => {
+            storage.ref('images').child(image.name).getDownloadURL().then(url => {
+                console.log(url)
+            })
+        })
         this.props.signUp(this.state)
     }
 
     handleSubmitImage = (e) => {
-        const { image } = this.state
-        const uploadTask = storage.ref(`images/${image.name}`).put(image)
-        uploadTask.on('state changed', () => {
-            storage.ref('images').child(image.name).getDownloadUrl().then(url => {
-                console.log(url)
-            })
-        })
+
     }
     
     render() {
@@ -50,7 +51,7 @@ class SignUp extends Component {
 
         return (
             <div className="container">
-                <form className="white" onSubmit={this.handleSubmit, this.handleSubmitImage}>
+                <form className="white" onSubmit={this.handleSubmit}>
                 <h5 className="grey-text text-darken-3">Sign Up</h5>
                     <div className="input-field">
                         <label htmlFor="firstName">First Name</label>
