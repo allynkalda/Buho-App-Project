@@ -32,11 +32,13 @@ class SignUp extends Component {
         const { image } = this.state
         const uploadTask = storage.ref(`images/${image.name}`).put(image)
         uploadTask.on('state_changed', (snapshot) => {
-            storage.ref('images').child(image.name).getDownloadURL().then(photoURL => {
-                console.log(photoURL)
+            storage.ref('images').child(image.name).getDownloadURL().then(photo => {
+                console.log(photo)
+                this.setState({ photoURL: photo })
+                this.props.signUp(this.state)  
             })
         })
-        this.props.signUp(this.state)
+         
     }
     
     render() {
@@ -89,7 +91,7 @@ const mapStateToProps = (state) => {
     }
   }
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
       signUp: (newUser) => dispatch(signUp(newUser))
     }

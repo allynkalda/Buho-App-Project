@@ -13,7 +13,7 @@ const Navbar = (props) => {
             <div className="container">
                 <ul className="right">
                     <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/">Profile</NavLink></li>
+                    <li><NavLink to="/profile">Profile</NavLink></li>
                     <li><a onClick={props.signOut}>Log Out</a></li>
                     <li><NavLink to="/" className="btn btn-floating green lighten-1">{props.profile.initials}</NavLink></li>
                 </ul>
