@@ -6,6 +6,7 @@ import SignUp from './components/auth/SignUp';
 import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
 import ShowProfile from './components/profile/ShowProfile';
+import Mapbox from './components/map/Mapbox';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path='/signup' component={SignUp} />
             <Route path='/login' component={Login} />
             <Route path='/profile' component={ShowProfile} />
+            <Route path='/map' component={Mapbox} />
           </Switch>
       </div>
     </BrowserRouter>

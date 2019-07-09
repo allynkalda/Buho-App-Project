@@ -24,7 +24,7 @@ class Login extends Component {
 
         const { authError, auth } = this.props;
 
-        // if (auth.uid) return <Redirect to='/' />
+        if (auth.uid) return <Redirect to='/' />
 
         return (
             <div className="container">

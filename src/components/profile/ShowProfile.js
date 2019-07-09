@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 const ShowProfile = ({ profile, auth }) => {
-    console.log(profile)
-    console.log(auth)
+        
+        if (!auth.uid) return <Redirect to='/' />
 
         return (
             <div>
